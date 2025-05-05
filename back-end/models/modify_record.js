@@ -1,5 +1,6 @@
 const db = require('./init')
 const StockingRecord = require('./stocking_record')
+const TotalStockingRecord = require('./total_stocking_record')
 const moment = require('moment')
 
 class ModifyRecord {
@@ -10,9 +11,10 @@ class ModifyRecord {
 
   addRow(data) {
     const db = this.db
-    const modify_time = moment(data.modify_time).format('YYYY-MM-DD')
+    const modify_time = moment(data.modify_time, 'YYYY-MM-DD').format('YYYY-MM-DD')
     data.modify_time = modify_time
-    StockingRecord.getRecord(data)
+    StockingRecord.modifyRecord(data)
+    TotalStockingRecord.modifyRecord(data)
 
     db.run(
       `
@@ -29,6 +31,7 @@ class ModifyRecord {
       }
     )
   }
+
 }
 
 module.exports = new ModifyRecord()

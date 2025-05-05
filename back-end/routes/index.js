@@ -6,8 +6,12 @@ router.post("/all_material_stocking_quantity", async (ctx) => {
   ctx.body = await TotalStockingRecord.getAllRecord()
 })
 
-router.post("/specify_material_stocking_quantity", async (ctx) => {
-
+router.post("/search_material", async (ctx) => {
+  const keyword = ctx.request.body['keyword']
+  const resp = await TotalStockingRecord.searchRecord(keyword)
+  ctx.body = {
+    materials: resp
+  }
 })
 
 router.post("/specify_material_stocking_quantity", async (ctx) => {
@@ -22,7 +26,7 @@ router.post("/modify_stocking_quantity", async (ctx) => {
   const data = ctx.request.body
   ModifyRecord.addRow(data)
   ctx.body = {
-    "data": data
+    data: data
   }
 })
 

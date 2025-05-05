@@ -29,6 +29,31 @@ class TotalStockingRecord {
     return resp
   }
 
+  async searchRecord(keyword) {
+    let resp = await new Promise((resolve, reject) => {
+      db.all(
+        `
+          SELECT material_name, total_stocking_quantity
+          FROM ${this.tableName}
+          WHERE material_name LIKE ?
+        `,
+        [`%${keyword}%`],
+        (err, rows) => {
+          if (err) {
+            console.log("fail to get data");
+            console.log(err)
+          } else {
+            if (rows === undefined) {
+            } else {
+              resolve(rows)
+            }
+          }
+        }
+      )
+    }) 
+    return resp
+  }
+
   async modifyRecord(data) {
     db.get(
       `

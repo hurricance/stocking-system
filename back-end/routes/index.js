@@ -14,8 +14,12 @@ router.post("/search_material", async (ctx) => {
   }
 })
 
-router.post("/specify_material_stocking_quantity", async (ctx) => {
-
+router.post("/specify_material_modify_record", async (ctx) => {
+  const material_name = ctx.request.body['material_name']
+  const resp = await TotalStockingRecord.searchRecordWithHistory(material_name)
+  ctx.body = {
+    record_detail: resp
+  }
 })
 
 router.post("/stocking_quantity_record", async (ctx) => {

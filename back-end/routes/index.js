@@ -1,9 +1,13 @@
-const { ModifyRecord } = require('../models')
+const { ModifyRecord, TotalStockingRecord, StockingRecord } = require('../models')
 const Router = require('@koa/router')
 const router = new Router()
 
 router.post("/all_material_stocking_quantity", async (ctx) => {
-  ctx.body = "this is a post method"
+  ctx.body = await TotalStockingRecord.getAllRecord()
+})
+
+router.post("/specify_material_stocking_quantity", async (ctx) => {
+
 })
 
 router.post("/specify_material_stocking_quantity", async (ctx) => {

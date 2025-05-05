@@ -15,6 +15,10 @@ class StockingRecord {
   }
 
   getRecord(data) {
+    db.all()
+  }
+
+  modifyRecord(data) {
     db.get(
       `
         SELECT * FROM stocking_records

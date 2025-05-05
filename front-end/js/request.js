@@ -4,7 +4,7 @@ let debounceTimer;
 // 使用 fetch 发送 GET 请求
 async function fetchItems(query) {
     try {
-        const response = await fetch(`http://localhost:5000/api/items?query=${encodeURIComponent(query)}`);
+        const response = await fetch(`http://localhost:5000/api/items?query=${encodeURIComponent(query)}`);//地址需要修改
         if (!response.ok) {
             throw new Error('网络响应不是预期的状态');
         }
@@ -48,5 +48,24 @@ window.onload = () => {
     fetchItems('');
 };
 
+
+
+// API 路由
+app.get('/api/items', async (req, res) => {
+    try {
+        const query = req.query.query || '';
+        const regex = new RegExp(query, 'i'); // 忽略大小写
+        const items = await Item.find({ name: regex });
+        res.json(items);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// 启动服务器
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 
 

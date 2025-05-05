@@ -31,6 +31,7 @@ class ModifyRecord {
       }
     )
   }
+
 }
 
 module.exports = new ModifyRecord()

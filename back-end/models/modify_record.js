@@ -11,7 +11,7 @@ class ModifyRecord {
 
   addRow(data) {
     const db = this.db
-    const modify_time = moment(data.modify_time).format('YYYY-MM-DD')
+    const modify_time = moment(data.modify_time, 'YYYY-MM-DD').format('YYYY-MM-DD')
     data.modify_time = modify_time
     StockingRecord.modifyRecord(data)
     TotalStockingRecord.modifyRecord(data)

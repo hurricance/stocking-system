@@ -1,4 +1,5 @@
 const db = require('./init')
+const moment = require('moment')
 const modifyTableName = "modify_records"
 
 class TotalStockingRecord {
@@ -54,6 +55,9 @@ class TotalStockingRecord {
   }
 
   async searchRecordWithHistory(material_name) {
+    const firstDayOfMonth = moment().startOf('month').format('YYYY-MM-DD')
+    const currentDate = moment().format('YYYY-MM-DD')
+
     let resp = await new Promise((resolve, reject) => {
       db.all(
         `
@@ -69,8 +73,10 @@ class TotalStockingRecord {
             WHERE material_name = ? 
           ) as a
           LEFT JOIN ${modifyTableName} as b ON a.material_name = b.material_name
+          WHERE b.modify_time BETWEEN ? and ?
+          ORDER BY b.modify_time ASC
         `,
-        [material_name],
+        [material_name, firstDayOfMonth, currentDate],
         (err, rows) => {
           if (err) {
             console.log(err)
@@ -100,7 +106,7 @@ class TotalStockingRecord {
           if (row === undefined) {
             this.addRow(data)
           } else {
-            this.modifyQuantity(data, originalTotalQuantity)
+            this.modifyQuantity(data, row.total_stocking_quantity)
           }
         }
       }
@@ -128,12 +134,14 @@ class TotalStockingRecord {
     data.quantity = data.operation_type === 2 ? data.quantity - originalQuantity : data.quantity + originalQuantity
     db.run(
       `
-        INSERT INTO ${this.tableName} (material_name, total_stocking_quantity)
-        VALUES (?, ?)
-      `, [data.material_name, data.quantity],
+        UPDATE ${this.tableName}
+        SET total_stocking_quantity = ?
+        WHERE material_name = ?
+      `, [data.quantity, data.material_name],
       (err) => {
         if (err) {
-          console.error('fail to update')
+          console.error('fail to update, 123')
+          console.log(err)
         } else {
           console.log("success to update");
         }

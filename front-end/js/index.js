@@ -117,7 +117,14 @@ const icons = [
 		icons_1.push(new Icon(i + 1, `Icon ${i + 1}`, icons[i]));
 	  }
 
-	size = 10,
+function addLinkToList(li, url) {
+	const anchor = document.createElement('a');
+	anchor.href = url;
+	li.appendChild(anchor);
+}
+
+
+	size = 20,
 	page = Math.ceil(icons_1.length / size),//元素数量除以每页图标个数，每页显示的图标数量
 	pagerCount = 8;
 
@@ -134,13 +141,17 @@ const showContent = () => {
 		if (index >= (current - 1) * size && index < current * size) {
 			// 每遍历一个创建一个li元素
 			const li = document.createElement("li");
+
+			
 			// li元素添加内容
-			li.innerHTML = `
+			li.innerHTML = `<a href = 'https://www.baidu.com'>
 			    <i class="material-icons">${item.iconClass}</i>
 					<p>${item.name}</p>
-					<p>${item.id}</p>`
+					<p>${item.id}</p>
+					</a>`
 					.trim();
 			// 添加到列表元素中
+			//addLinkToList(li, url);
 			_content.appendChild(li);
 		}
 	});
@@ -265,6 +276,47 @@ const createPagination = () => {
 		createPagination();
 	});
 };
+
+        // 使用 fetch 发送 GET 请求
+        async function fetchItems() {
+            try {
+                const response = await fetch('http://localhost:5000/api/items');
+                if (!response.ok) {
+                    throw new Error('网络响应不是预期的状态');
+                }
+                const data = await response.json();
+                displayItems(data);
+            } catch (error) {
+                console.error('获取数据时出错:', error);
+            }
+        }
+
+        // 显示数据
+        function displayItems(items) {
+            const itemList = document.getElementById('itemList');
+            itemList.innerHTML = ''; // 清空现有内容
+            items.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${item.name}: ${item.value}`;
+                itemList.appendChild(listItem);
+            });
+        }
+
+        // 页面加载完成后发送请求
+        window.onload = fetchItems;
+
+
+
+
+
+
+
+
+
+
+
+
+
 createPagination();
 
 // OK 没问题了 这样就做了一个灵活的分页函数了

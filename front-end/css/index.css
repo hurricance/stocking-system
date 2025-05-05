@@ -1,26 +1,29 @@
 *{padding:0;margin:0;user-select:none}
 body
-
 {
     display:flex;
-    justify-content:center;
-    align-items:center;
+      justify-content:center;
+    /* align-items:center;   */
     height:100vh;
     background-color:#f8f9ff
 }
 ul{list-style:none}
+
 .container
 {
     display:flex;
-    flex-direction:column;
-    align-items:center;
+     justify-content:center;
+    flex-direction:column; 
+    align-items:center;  
     width:600px
+
 }
     .container .content
     {
         display:flex;
         flex-wrap:wrap
     }
+
     .container .content li
     {
         display:flex;
@@ -29,7 +32,23 @@ ul{list-style:none}
         align-items:center;width:100px;
         height:100px;padding:10px
     }
-        .container .content li i
+        .container .content li a {
+        color: #007bff; /* 蓝色 */
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+    .container .content li a:hover {
+        background-color: #0056b3; /* 悬停时更深的蓝色 */
+        color: #fff; /* 文本变为白色 */
+    }
+    .container .content li a.active {
+        background-color: #0056b3; /* 当前活动状态 */
+        color: #fff;
+    }
+        .container .content li a i
         {
             display:flex;
             justify-content:center;
@@ -44,11 +63,11 @@ ul{list-style:none}
             transition:all .3s;
             box-shadow:0 16px 32px rgba(90,100,130,0.1)
         }
-            .container .content li i:hover
+            .container .content li a i:hover
             {
                 color:#6b5bfd;transform:scale(1.2)
             }
-            .container .content li p{font-size:13px;color:#cdd5f7}
+            .container .content li a p{font-size:13px;color:#cdd5f7}
             .container .pagination
             {
                 display:flex;align-items:center;
@@ -117,3 +136,57 @@ ul{list-style:none}
             }
             .container .pagination li.page-dot.page-dot-next:hover::after
             {content:"last_page"}
+
+
+
+.container_2
+{
+    display:flex;
+     justify-content:center;
+    flex-direction:column; 
+    align-items:center;  
+    width: 1000px;
+
+}
+.container_1{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    padding: 50px 0; 
+
+}
+
+.search-container{
+    width: 1000px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.search-container input{
+    /* flex: 1; */
+    height: 50px;
+    line-height: 50px;
+    box-sizing:border-box;
+    outline: none;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius:25px ;
+    padding: 0 20px;
+
+}
+.search-container button{
+    height: 50px;
+    line-height: 50px;
+    padding: 0 30px;
+    border: none;
+    box-sizing: border-box;
+    background-color: rgb(59, 118, 255);
+    font-size: 24px;
+    color: #fff;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius:25px ;
+}
+
+
+
+
+

@@ -83,3 +83,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+document.getElementById('addProduct').addEventListener('click', function() {
+    location.href = 'index.html';
+});
+

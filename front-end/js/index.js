@@ -144,7 +144,7 @@ const showContent = () => {
 
 			
 			// li元素添加内容
-			li.innerHTML = `<a href = 'https://www.baidu.com'>
+			li.innerHTML = `<a href = 'table.html'>
 			    <i class="material-icons">${item.iconClass}</i>
 					<p>${item.name}</p>
 					<p>${item.id}</p>

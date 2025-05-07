@@ -131,7 +131,7 @@ class TotalStockingRecord {
   }
 
   async modifyQuantity(data, originalQuantity) {
-    data.quantity = data.operation_type === 2 ? data.quantity - originalQuantity : data.quantity + originalQuantity
+    data.quantity = data.operation_type === 2 ? originalQuantity - data.quantity: data.quantity + originalQuantity
     db.run(
       `
         UPDATE ${this.tableName}

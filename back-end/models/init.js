@@ -17,7 +17,7 @@ db.run(
     material_supplier VARCHAR(255) NOT NULL,
     material_name VARCHAR(255) NOT NULL,
     operation_type INTEGER NOT NULL,
-    stocking_quantity INTEGER NOT NULL DEFAULT 0,
+    quantity INTEGER NOT NULL DEFAULT 0,
     batch_time DATE NOT NULL DEFAULT (date(CURRENT_DATE, 'localtime')),
     extra VARCHAR(255) NOT NULL DEFAULT '',
     createdAt DATETIME NOT NULL DEFAULT (date(CURRENT_DATE, 'localtime')),
@@ -52,9 +52,9 @@ db.run(
     material_supplier VARCHAR(255) NOT NULL,
     material_name VARCHAR(255) NOT NULL,
     inbound_stocking_quantity INTEGER NOT NULL DEFAULT 0,
-    final_stocking_quantity INTEGER NOT NULL DEFAULT 0,
-    consume_stocking_quantity INTEGER NOT NULL DEFAULT 0,
-    loss_stocking_quantity INTEGER NOT NULL DEFAULT 0,
+    remain_stocking_quantity INTEGER NOT NULL DEFAULT 0,
+    consume_quantity INTEGER NOT NULL DEFAULT 0,
+    unsold_quantity INTEGER NOT NULL DEFAULT 0,
     batch_time DATE NOT NULL DEFAULT (date(CURRENT_DATE, 'localtime')),
     extra VARCHAR(255) NOT NULL DEFAULT '',
     createdAt DATETIME NOT NULL DEFAULT (date(CURRENT_DATE, 'localtime')),
@@ -70,7 +70,7 @@ db.run(
       `
       CREATE INDEX IF NOT EXISTS idx_daily_records_batch_time ON daily_batch_stocking_records (batch_time);
       CREATE INDEX IF NOT EXISTS idx_daily_records_createdAt ON daily_batch_stocking_records (createdAt);
-      CREATE INDEX IF NOT EXISTS idx_daily_records_final_stocking_quantity ON daily_batch_stocking_records (final_stocking_quantity);
+      CREATE INDEX IF NOT EXISTS idx_daily_records_remain_stocking_quantity ON daily_batch_stocking_records (remain_stocking_quantity);
       `, (err) => {
       if (err) {
         console.error('Error creating index: daily_batch_stocking_records', err.message);

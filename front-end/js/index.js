@@ -1,7 +1,16 @@
 /* icons为预先准备好的图标100个
  size为每页显示的个数
  page是显示的总页数 向上取整(一个也会占一页)
- pagerCount为要显示的数字按钮的个数 */
+ pagerCount为要显示的数字按钮的个数 */            
+ 
+ const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+            const day = String(today.getDate()).padStart(2, '0');
+            const formattedDate = `${year}-${month}-${day}`;
+
+
+
 const icons = [
 		"pregnant_woman",
 		"accessibility",
@@ -114,7 +123,7 @@ const icons = [
 	  // 初始化100个结构体
 	  const icons_1 = [];
 	  for (let i = 0; i < 100; i++) {
-		icons_1.push(new Icon(i + 1, `Icon ${i + 1}`, icons[i]));
+		icons_1.push(new Icon(i + 1, `产品 ${i + 1}`, icons[i]));
 	  }
 
 function addLinkToList(li, url) {
@@ -124,7 +133,7 @@ function addLinkToList(li, url) {
 }
 
 
-	size = 20,
+	size = 40,
 	page = Math.ceil(icons_1.length / size),//元素数量除以每页图标个数，每页显示的图标数量
 	pagerCount = 8;
 
@@ -280,7 +289,7 @@ const createPagination = () => {
         // 使用 fetch 发送 GET 请求
         async function fetchItems() {
             try {
-                const response = await fetch('http://localhost:5000/api/items');
+                const response = await fetch('');
                 if (!response.ok) {
                     throw new Error('网络响应不是预期的状态');
                 }
@@ -307,7 +316,76 @@ const createPagination = () => {
 
 
 
+        function handleSelectChange() {
+            const selectedValue = document.getElementById('options').value;
+            const inputContainer = document.getElementById('inputContainer');
+            inputContainer.innerHTML = ''; // Clear previous inputs
 
+            if (selectedValue === '0') {
+                inputContainer.innerHTML = `<label for="getin">入库数量:</label><br>
+                                           <input type="number" id="numberInput" name="name">`;
+            } else if (selectedValue === '1') {
+                inputContainer.innerHTML = `<label for="getout">出库数量:</label><br>
+                                           <input type="number" id="numberInput" name="name"><br>
+                                           <label for="papermaker">甩纸:</label><br>
+                                           <input type="number" id="npapermakerInput" name="papermaker"><br>
+                                           <label for="customer">返库:</label><br>
+                                           <input type="number" id="customer" name="customer">`;
+            } else if (selectedValue === '2') {
+                inputContainer.innerHTML = `<label for="newgetin">新入库数量:</label><br>
+                                           <input type="number" id="numberInput" name="name"><br>
+                                           <label for="papermaker">纸厂:</label><br>
+                                           <input type="text" id="npapermakerInput" name="papermaker"><br>
+                                           <label for="customer">客户:</label><br>
+                                           <input type="text" id="customer" name="customer">`;
+            }
+        }
+		document.getElementById('options').addEventListener('change', handleSelectChange);
+
+        // Initial call to set up inputs based on the default selected value
+        handleSelectChange();
+
+        // Add event listener to the select element
+
+        // Add event listener to the select element
+        // Sample array with dynamic options
+        const optionsArray = ['选项 1', '选项 2', '选项 3', '选项 4'];
+
+        // Function to populate the select element based on the array
+        function populateSelect(array) {
+            const selectElement = document.getElementById('dynamicSelect');
+            selectElement.innerHTML = ''; // Clear existing options
+
+            array.forEach((item, index) => {
+                const option = document.createElement('option');
+                option.value = index; // You can set the value as needed
+                option.textContent = item;
+                selectElement.appendChild(option);
+            });
+        }
+
+        // Initial population of the select element
+        populateSelect(optionsArray);
+
+        // Function to initialize date input with today's date
+        function initializeDateInput() {
+            const dateInput = document.getElementById('dateInput');
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+            const day = String(today.getDate()).padStart(2, '0');
+            const formattedDate = `${year}-${month}-${day}`;
+            dateInput.value = formattedDate;
+        }
+
+        // Initialize date input with today's date
+        initializeDateInput();
+
+        // Example of updating the array and repopulating the select
+        setTimeout(() => {
+            const newOptionsArray = ['新选项 1', '新选项 2'];
+            populateSelect(newOptionsArray);
+        }, 5000); // Update after 5 seconds for demonstration purposes
 
 
 

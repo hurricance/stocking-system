@@ -1,71 +1,62 @@
 
-let debounceTimer;
+document.getElementById('dataForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // 阻止默认的表单提交行为
 
-// 使用 fetch 发送 GET 请求
-async function fetchItems(query) {
-    try {
-        const response = await fetch(`http://localhost:5000/api/items?query=${encodeURIComponent(query)}`);//地址需要修改
-        if (!response.ok) {
-            throw new Error('网络响应不是预期的状态');
-        }
-        const data = await response.json();
-        displayItems(data);
-    } catch (error) {
-        console.error('获取数据时出错:', error);
-    }
-}
+    const formData = new FormData(this);
+    const data = {
+        customer_name: formData.get('customer_name'),
+        material_supplier: formData.get('material_supplier'),
+        material_name: formData.get('material_name'),
+        total_stocking_quantity: parseInt(formData.get('total_stocking_quantity'), 10),
+        total_forSale_quantity: parseInt(formData.get('total_forSale_quantity'), 10)
+    };
 
-// 显示数据
-function displayItems(items) {
-    const itemList = document.getElementById('itemList');
-    itemList.innerHTML = ''; // 清空现有内容
-    items.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${item.name}: ${item.value}`;
-        itemList.appendChild(listItem);
+    fetch('https://jsonplaceholder.typicode.com/posts', { // 替换为你的服务器端点
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        document.getElementById('responseContainer').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        document.getElementById('responseContainer').innerHTML = `<p>Error: ${error.message}</p>`;
     });
-}
-
-// 输入框事件监听器
-document.getElementById('searchInput').addEventListener('input', (event) => {
-    const query = event.target.value;
-
-    // 清除之前的定时器
-    clearTimeout(debounceTimer);
-
-    // 设置新的定时器
-    debounceTimer = setTimeout(() => {
-        if (query.trim()) {
-            fetchItems(query);
-        } else {
-            displayItems([]); // 如果输入为空，清空列表
-        }
-    }, 1000); // 1秒延迟
 });
 
-// 页面加载完成后发送初始请求
-window.onload = () => {
-    fetchItems('');
-};
+//发送数据并接收
 
+document.getElementById('dataForm').addEventListener('submit', function(event) {//按钮id
+    event.preventDefault(); // 阻止默认的表单提交行为
 
+    const formData = new FormData(this);
+    const data = {
+        customer_name: formData.get('customer_name'),
+        material_supplier: formData.get('material_supplier'),
+        material_name: formData.get('material_name'),
+        total_stocking_quantity: parseInt(formData.get('total_stocking_quantity'), 10),
+        total_forSale_quantity: parseInt(formData.get('total_forSale_quantity'), 10)
+    };
 
-// API 路由
-app.get('/api/items', async (req, res) => {
-    try {
-        const query = req.query.query || '';
-        const regex = new RegExp(query, 'i'); // 忽略大小写
-        const items = await Item.find({ name: regex });
-        res.json(items);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+    fetch('http://localhost:3000/saveData', { // 替换为你的服务器端点
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        document.getElementById('responseContainer').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        document.getElementById('responseContainer').innerHTML = `<p>Error: ${error.message}</p>`;
+    });
 });
-
-// 启动服务器
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
-
-

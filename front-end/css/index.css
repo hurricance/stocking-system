@@ -15,7 +15,7 @@ ul{list-style:none}
      justify-content:center;
     flex-direction:column; 
     align-items:center;  
-    width:600px
+    width:1200px
 
 }
     .container .content
@@ -29,8 +29,12 @@ ul{list-style:none}
         display:flex;
         flex-direction:column;
         justify-content:space-between;
-        align-items:center;width:100px;
-        height:100px;padding:10px
+        align-items:center;
+        width:100px;
+        color: black;
+        height:100px;
+        padding:10px
+
     }
         .container .content li a {
         color: #007bff; /* 蓝色 */
@@ -214,5 +218,7 @@ ul{list-style:none}
     background-color: #0056b3;
 }
 
-
+.input-container {
+    margin-top: 10px;
+}
 

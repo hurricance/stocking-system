@@ -88,3 +88,20 @@ document.getElementById('addProduct').addEventListener('click', function() {
     location.href = 'index.html';
 });
 
+document.getElementById('options').addEventListener('change', function() {
+    const selectedValue = this.value;
+    const inputContainer = document.getElementById('inputContainer');
+    inputContainer.innerHTML = ''; // Clear previous inputs
+
+    if (selectedValue === '0') {
+        inputContainer.innerHTML = '<label for="nameInput">Enter your name:</label><br>' +
+                                   '<input type="text" id="nameInput" name="name">';
+    } else if (selectedValue === '1') {
+        inputContainer.innerHTML = '<label for="ageInput">Enter your age:</label><br>' +
+                                   '<input type="number" id="ageInput" name="age">';
+    } else if (selectedValue === '2') {
+        inputContainer.innerHTML = '<label for="emailInput">Enter your email:</label><br>' +
+                                   '<input type="email" id="emailInput" name="email">';
+    }
+});
+

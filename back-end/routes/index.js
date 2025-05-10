@@ -1,34 +1,38 @@
-const { ModifyRecord, TotalStockingRecord, StockingRecord } = require('../models')
+const { modifyRecord, totalStockingQuantityRecord, dailyBatchStockingRecord } = require('../models')
 const Router = require('@koa/router')
 const router = new Router()
 
-router.post("/all_material_stocking_quantity", async (ctx) => {
-  ctx.body = await TotalStockingRecord.getAllRecord()
+// all total quantity
+router.post("/all_quantity_data", async (ctx) => {
+  const data = await totalStockingQuantityRecord.getAllRecord()
+  ctx.body = {
+    data: data
+  } 
 })
 
-router.post("/search_material", async (ctx) => {
-  const keyword = ctx.request.body['keyword']
-  const resp = await TotalStockingRecord.searchRecord(keyword)
+// specify material in total quantity
+router.post("/quantity_data", async (ctx) => {
+  const queryBody = ctx.request.body
+  const resp = await totalStockingQuantityRecord.searchRecord(queryBody)
   ctx.body = {
-    materials: resp
+    data: resp
   }
 })
 
-router.post("/specify_material_modify_record", async (ctx) => {
-  const material_name = ctx.request.body['material_name']
-  const resp = await TotalStockingRecord.searchRecordWithHistory(material_name)
+// curd for quantity
+router.post("/operation", async (ctx) => {
+  const operationData = ctx.request.body
+  operationData.extra = operationData.extra ?? ''
+  modifyRecord.addRow(operationData)
   ctx.body = {
-    record_detail: resp
+    message: "success"
   }
 })
 
-router.post("/stocking_quantity_record", async (ctx) => {
-
-})
-
-router.post("/modify_stocking_quantity", async (ctx) => {
-  const data = ctx.request.body
-  ModifyRecord.addRow(data)
+// search details in modifyrecord by kinds and date
+router.post("/details", async (ctx) => {
+  const queryBody = ctx.request.body
+  const data = await dailyBatchStockingRecord.queryDetail(queryBody)
   ctx.body = {
     data: data
   }

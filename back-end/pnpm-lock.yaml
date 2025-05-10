@@ -11,6 +11,9 @@ importers:
       '@koa/bodyparser':
         specifier: ^5.1.1
         version: 5.1.1(koa@3.0.0)
+      '@koa/cors':
+        specifier: ^5.0.0
+        version: 5.0.0
       '@koa/router':
         specifier: ^13.1.0
         version: 13.1.0
@@ -37,6 +40,10 @@ packages:
     engines: {node: '>= 16'}
     peerDependencies:
       koa: ^2.14.1
+
+  '@koa/cors@5.0.0':
+    resolution: {integrity: sha512-x/iUDjcS90W69PryLDIMgFyV21YLTnG9zOpPXS7Bkt2b8AsY3zZsIpOLBkYr9fBcF3HbkKaER5hOBZLfpLgYNw==}
+    engines: {node: '>= 14.0.0'}
 
   '@koa/router@13.1.0':
     resolution: {integrity: sha512-mNVu1nvkpSd8Q8gMebGbCkDWJ51ODetrFvLKYusej+V0ByD4btqHYnPIzTBLXnQMVUlm/oxVwqmWBY3zQfZilw==}
@@ -753,6 +760,10 @@ snapshots:
       koa: 3.0.0
       lodash.merge: 4.6.2
       type-is: 1.6.18
+
+  '@koa/cors@5.0.0':
+    dependencies:
+      vary: 1.1.2
 
   '@koa/router@13.1.0':
     dependencies:

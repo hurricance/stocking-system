@@ -89,6 +89,7 @@ db.run(
     material_supplier VARCHAR(255) NOT NULL,
     material_name VARCHAR(255) NOT NULL,
     total_stocking_quantity INTEGER NOT NULL DEFAULT 0,
+    total_unsold_quantity INTEGER NOT NULL DEFAULT 0,
     extra VARCHAR(255) NOT NULL DEFAULT '',
     createdAt DATETIME NOT NULL DEFAULT (date(CURRENT_DATE, 'localtime')),
     updatedAt DATETIME NOT NULL DEFAULT (date(CURRENT_DATE, 'localtime')),

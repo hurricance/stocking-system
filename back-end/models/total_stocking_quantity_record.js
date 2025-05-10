@@ -62,43 +62,43 @@ class TotalStockingQuantityRecord {
     return resp
   }
 
-  async searchRecordWithHistory(material_name) {
-    const firstDayOfMonth = moment().startOf('month').format('YYYY-MM-DD')
-    const currentDate = moment().format('YYYY-MM-DD')
+  // async searchRecordWithHistory(material_name) {
+  //   const firstDayOfMonth = moment().startOf('month').format('YYYY-MM-DD')
+  //   const currentDate = moment().format('YYYY-MM-DD')
 
-    let resp = await new Promise((resolve, reject) => {
-      db.all(
-        `
-          SELECT 
-          a.material_name as material_name, 
-          a.total_stocking_quantity as total_stocking_quantity,
-          b.operation_type as operation_type,
-          b.stocking_quantity as modified_quantity,
-          b.modify_time as modify_time,
-          b.createdAt as createdAt
-          FROM (
-            SELECT * FROM ${this.tableName}
-            WHERE material_name = ? 
-          ) as a
-          LEFT JOIN ${modifyTableName} as b ON a.material_name = b.material_name
-          WHERE b.modify_time BETWEEN ? and ?
-          ORDER BY b.modify_time ASC
-        `,
-        [material_name, firstDayOfMonth, currentDate],
-        (err, rows) => {
-          if (err) {
-            console.log(err)
-          } else {
-            if (rows === undefined) {
-            } else {
-              resolve(rows)
-            }
-          }
-        }
-      )
-    }) 
-    return resp
-  }
+  //   let resp = await new Promise((resolve, reject) => {
+  //     db.all(
+  //       `
+  //         SELECT 
+  //         a.material_name as material_name, 
+  //         a.total_stocking_quantity as total_stocking_quantity,
+  //         b.operation_type as operation_type,
+  //         b.stocking_quantity as modified_quantity,
+  //         b.modify_time as modify_time,
+  //         b.createdAt as createdAt
+  //         FROM (
+  //           SELECT * FROM ${this.tableName}
+  //           WHERE material_name = ? 
+  //         ) as a
+  //         LEFT JOIN ${modifyTableName} as b ON a.material_name = b.material_name
+  //         WHERE b.modify_time BETWEEN ? and ?
+  //         ORDER BY b.modify_time ASC
+  //       `,
+  //       [material_name, firstDayOfMonth, currentDate],
+  //       (err, rows) => {
+  //         if (err) {
+  //           console.log(err)
+  //         } else {
+  //           if (rows === undefined) {
+  //           } else {
+  //             resolve(rows)
+  //           }
+  //         }
+  //       }
+  //     )
+  //   }) 
+  //   return resp
+  // }
 
   /**
    * @param {Object} operationData 

@@ -1,9 +1,9 @@
-const ModifyRecord = require('./modify_record')
-const TotalStockingRecord = require('./total_stocking_record')
-const StockingRecord = require('./stocking_record')
+const modifyRecord = require('./modify_record')
+const totalStockingQuantityRecord = require('./total_stocking_quantity_record')
+const dailyBatchStockingRecord = require('./daily_batch_stocking_record')
 
 module.exports = {
-  ModifyRecord,
-  TotalStockingRecord,
-  StockingRecord
+  modifyRecord,
+  totalStockingQuantityRecord,
+  dailyBatchStockingRecord
 }

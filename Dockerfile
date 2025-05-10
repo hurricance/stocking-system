@@ -4,5 +4,5 @@ COPY ./back-end/package.json ./back-end/pnpm-lock.yaml ./
 RUN npm install -g pnpm
 RUN pnpm install
 COPY ./back-end .
-EXPOSE 8080
+EXPOSE 3000
 CMD ["pnpm", "run", "dev"]

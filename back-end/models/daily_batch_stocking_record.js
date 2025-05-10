@@ -15,7 +15,7 @@ class DailyBatchStockingRecord {
    * @param {string} queryBody.customer_name
    * @param {string} queryBody.material_supplier
    * @param {string} queryBody.material_name
-   * @param {string} [queryBody.modify_time]
+   * @param {string} [queryBody.batch_time]
    */
   async queryDetail(queryBody) {
     let totalData = await new Promise((resolve, reject) => {
@@ -41,8 +41,8 @@ class DailyBatchStockingRecord {
 
     const monthStartDate = moment().startOf('month').format('YYYY-MM-DD')
     const curDate = moment().format('YYYY-MM-DD')
-    if (queryBody.modify_time !== undefined) {
-      const specifyDate = queryBody.modify_time
+    if (queryBody.batch_time !== undefined) {
+      const specifyDate = queryBody.batch_time
       let qtyGap
       if (specifyDate === curDate) {
         qtyGap = 0

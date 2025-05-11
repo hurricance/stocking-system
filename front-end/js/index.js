@@ -387,15 +387,19 @@ const createPagination = () => {
             populateSelect(newOptionsArray);
         }, 5000); // Update after 5 seconds for demonstration purposes
 
-
-
-
-
-
-
-
-
 createPagination();
+
+
+//材料排序与显示
+
+
+
+
+//列表变换
+
+
+
+
 
 // OK 没问题了 这样就做了一个灵活的分页函数了
 // 拜拜 各位大佬 下期见

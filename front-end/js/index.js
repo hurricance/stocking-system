@@ -4,7 +4,36 @@
  pagerCount为要显示的数字按钮的个数 */  
  
 //  main.js
-import { alldate } from './data.js';//获取data.js中的data数据
+// import  alldata  from './data.js';//获取data.js中的data数据
+const alldata =require('./data.js')
+console.log(alldata);
+
+// const alldata = {
+//     "data": [
+//         {
+//             "id": 1,
+//             "customer_name": "test",
+//             "material_supplier": "123",
+//             "material_name": "456",
+//             "total_stocking_quantity": 7300,
+//             "total_forSale_quantity": 2600,
+//             "extra": "",
+//             "createdAt": "2025-05-10",
+//             "updatedAt": "2025-05-10 21:19:16"
+//         },
+//         {
+//             "id": 2,
+//             "customer_name": "test",
+//             "material_supplier": "789",
+//             "material_name": "456",
+//             "total_stocking_quantity": 200,
+//             "total_forSale_quantity": 0,
+//             "extra": "",
+//             "createdAt": "2025-05-10",
+//             "updatedAt": "2025-05-10"
+//         }
+//     ]
+// };
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log(alldata);
@@ -142,7 +171,7 @@ function addLinkToList(li, url) {
 
 
 	size = 40,
-	page = Math.ceil(icons_1.length / size),//元素数量除以每页图标个数，每页显示的图标数量
+	page = Math.ceil(alldata.data.length / size),//元素数量除以每页图标个数，每页显示的图标数量
 
 	//page = Math.ceil(alldata.data.length / size),//元素数量除以每页图标个数，每页显示的图标数量
 	pagerCount = 8;
@@ -155,7 +184,7 @@ const _content = document.querySelector(".content");
 const showContent = () => {
 	// 每次遍历新内容 首先清空
 	_content.innerHTML = "";
-	icons_1.forEach((item, index) => {
+	alldata.data.forEach((item, index) => {
 		// 遍历计算方法 当前为第1页 一页10个 第一页的数据就是 0 - 10(不包含) 第二页为 10 - 20(不包含) 以此类推
 		if (index >= (current - 1) * size && index < current * size) {
 			// 每遍历一个创建一个li元素
@@ -164,17 +193,18 @@ const showContent = () => {
 			
 			// li元素添加内容
 			li.innerHTML = `<a href = 'table.html'>
-			    <i class="material-icons">${item.iconClass}</i>
-					<p>${item.name}</p>
-					<p>${item.id}</p>
+			//<p>${item.material_name}</p>
+			// 		<p>${item.total_stocking_quantity}</p>
+					<p>${item.material_name}</p>
 
 
 
 					</a>`
 					.trim();
-			// // 添加到列表元素中					
-			//<p>${alldata.data.material_name}</p>
-			// 		<p>${alldata.data.total_stocking_quantity}</p>
+			// // 添加到列表元素中							<p>${item.id}</p>
+		
+						    // <i class="material-icons">${item.iconClass}</i>	
+
 			//addLinkToList(li, url);
 			_content.appendChild(li);
 		}

@@ -1,7 +1,15 @@
 /* icons为预先准备好的图标100个
  size为每页显示的个数
  page是显示的总页数 向上取整(一个也会占一页)
- pagerCount为要显示的数字按钮的个数 */            
+ pagerCount为要显示的数字按钮的个数 */  
+ 
+//  main.js
+import { alldate } from './data.js';//获取data.js中的data数据
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log(alldata);
+    // document.getElementById('responseContainer').textContent = JSON.stringify(alldate, null, 2);//打印并显示
+});
  
  const today = new Date();
             const year = today.getFullYear();
@@ -135,6 +143,8 @@ function addLinkToList(li, url) {
 
 	size = 40,
 	page = Math.ceil(icons_1.length / size),//元素数量除以每页图标个数，每页显示的图标数量
+
+	//page = Math.ceil(alldata.data.length / size),//元素数量除以每页图标个数，每页显示的图标数量
 	pagerCount = 8;
 
 // 当前选中的页数
@@ -157,9 +167,14 @@ const showContent = () => {
 			    <i class="material-icons">${item.iconClass}</i>
 					<p>${item.name}</p>
 					<p>${item.id}</p>
+
+
+
 					</a>`
 					.trim();
-			// 添加到列表元素中
+			// // 添加到列表元素中					
+			//<p>${alldata.data.material_name}</p>
+			// 		<p>${alldata.data.total_stocking_quantity}</p>
 			//addLinkToList(li, url);
 			_content.appendChild(li);
 		}

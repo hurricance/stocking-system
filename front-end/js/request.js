@@ -18,7 +18,7 @@ document.getElementById('dataForm').addEventListener('submit', function(event) {
             
     };
 
-    fetch('127.0.0.1:8080/all_quantity_data', { // 替换为你的服务器端点
+    fetch('http://127.0.0.1:8080/all_quantity_data', { // 替换为你的服务器端点
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -38,7 +38,50 @@
 				  <span>&nbsp;&nbsp;&nbsp;日期&nbsp;</span>
 				 <input type="date" id="dateInput" placeholder="请您选择日期">
 			</div>
-		<div class="search-bar">
+			<div class="search-row">
+				<!-- 搜索产品名称 -->
+				<div class="search-container">
+					<input type="text" class="search-input" placeholder="名称..." data-field="name">
+					<div class="dropdown" id="dropdown-name">
+						<div class="dropdown-content">
+							<div class="search-history">
+								<div class="history-header">搜索记录</div>
+								<div class="history-items"></div>
+							</div>
+							<div class="search-results"></div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 搜索产品类别 -->
+				<div class="search-container">
+					<input type="text" class="search-input" placeholder="供应商..." data-field="category">
+					<div class="dropdown" id="dropdown-category">
+						<div class="dropdown-content">
+							<div class="search-history">
+								<div class="history-header">搜索记录</div>
+								<div class="history-items"></div>
+							</div>
+							<div class="search-results"></div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 搜索价格范围 -->
+				<div class="search-container">
+					<input type="text" class="search-input" placeholder="客户..." data-field="priceRange">
+					<div class="dropdown" id="dropdown-priceRange">
+						<div class="dropdown-content">
+							<div class="search-history">
+								<div class="history-header">搜索记录</div>
+								<div class="history-items"></div>
+							</div>
+							<div class="search-results"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- <div class="search-bar">
 			<span>产品名称&nbsp;</span>
 			<input type="text" placeholder="请输入内容" id="searchInput">
 		</div>
@@ -50,14 +93,14 @@
 			<span>生产厂家&nbsp;</span>
 			<input type="text" placeholder="请输入内容" id="searchmakerInput">
 			<button id="searchButton"><i class="fas fa-search">搜索</i></button>
-		</div>
+		</div> -->
 			<br>
 		<div class="container">
 			<ul class="content"></ul>
 			<ul class="pagination"></ul>
 		</div>
 
-		<form id="dataForm">
+		<!-- <form id="dataForm">
 			<div class="container000">
 				<label for="id00">id:</label><br>
 				<input type="text" id="id00" name="id00"><br>
@@ -97,10 +140,10 @@
 		</form>
 		<div class="response-container000" id="responseContainer">
 
-			
-		</div>
 
-		<script src="js/index.js"></script>
-		<script src="js/request.js"></script>
-		</body>
+		</div> -->
+
+		<script src="js/index.js" type="module"></script>
+		<script src="js/request.js" type="module"></script>
+		</body> 
 </html>

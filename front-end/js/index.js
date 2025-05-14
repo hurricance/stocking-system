@@ -4,8 +4,8 @@
  pagerCount为要显示的数字按钮的个数 */  
  
 //  main.js
-// import  alldata  from './data.js';//获取data.js中的data数据
-const alldata =require('./data.js')
+import  alldata  from './data.js';//获取data.js中的data数据
+// const alldata =require('./data.js')
 console.log(alldata);
 
 // const alldata = {
@@ -170,11 +170,10 @@ function addLinkToList(li, url) {
 }
 
 
-	size = 40,
-	page = Math.ceil(alldata.data.length / size),//元素数量除以每页图标个数，每页显示的图标数量
+	let size = 40,page = Math.ceil(alldata.data.length / size),//元素数量除以每页图标个数，每页显示的图标数量
 
 	//page = Math.ceil(alldata.data.length / size),//元素数量除以每页图标个数，每页显示的图标数量
-	pagerCount = 8;
+	 pagerCount = 8;
 
 // 当前选中的页数
 let current = 1;
@@ -434,7 +433,234 @@ const createPagination = () => {
 
 createPagination();
 
+// script.js
+document.addEventListener('DOMContentLoaded', function() {
+    // 示例结构体数组 - 产品数据
+    const products = [
+        // ...（保持之前的products数组不变）
+    ];
 
+    // 搜索历史 - 按字段存储
+    let searchHistory = {
+        name: ['产品1', '产品2', '产品3'],
+        category: ['厂商1', '厂商2'],
+        priceRange: ['consumer1', 'consumer2']
+    };
+
+    // 当前搜索结果
+    let currentResults = [];
+
+    // 跟踪当前活动的搜索框
+    let activeSearchField = null;
+
+    // 为每个搜索框添加事件监听
+    document.querySelectorAll('.search-input').forEach(input => {
+        const field = input.getAttribute('data-field');
+        const dropdown = document.getElementById(`dropdown-${field}`);
+        const historyItems = dropdown.querySelector('.history-items');
+        const searchResults = dropdown.querySelector('.search-results');
+        
+        // 显示搜索历史
+        function displayHistory() {
+            historyItems.innerHTML = '';
+            if (searchHistory[field] && searchHistory[field].length > 0) {
+                searchHistory[field].forEach(item => {
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'history-item';
+                    historyItem.textContent = item;
+                    historyItem.addEventListener('click', function() {
+                        input.value = item;
+                        hideAllDropdowns();
+                        performSearch(field, item);
+                    });
+                    historyItems.appendChild(historyItem);
+                });
+            } else {
+                const noHistory = document.createElement('div');
+                noHistory.className = 'history-item';
+                noHistory.textContent = '暂无搜索记录';
+                historyItems.appendChild(noHistory);
+            }
+        }
+        
+        // 显示搜索结果建议
+        function displaySuggestions(keyword) {
+            searchResults.innerHTML = '';
+            if (!keyword) return;
+            
+            // 获取该字段的所有可能值
+            const fieldValues = [...new Set(products.map(p => p[field]))];
+            
+            // 模糊匹配
+            const suggestions = fieldValues.filter(value => 
+                String(value).toLowerCase().includes(keyword.toLowerCase())
+            );
+            
+            if (suggestions.length > 0) {
+                suggestions.forEach(item => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'result-item';
+                    resultItem.textContent = item;
+                    resultItem.addEventListener('click', function() {
+                        input.value = item;
+                        hideAllDropdowns();
+                        addToHistory(field, item);
+                        performSearch(field, item);
+                    });
+                    searchResults.appendChild(resultItem);
+                });
+            } else {
+                const noResults = document.createElement('div');
+                noResults.className = 'result-item';
+                noResults.textContent = '无匹配结果';
+                searchResults.appendChild(noResults);
+            }
+        }
+        
+        // 添加到搜索历史
+        function addToHistory(field, value) {
+            if (!searchHistory[field]) {
+                searchHistory[field] = [];
+            }
+            
+            // 如果历史记录中已有该项，先移除
+            searchHistory[field] = searchHistory[field].filter(
+                historyItem => historyItem !== value
+            );
+            
+            // 添加到历史记录开头
+            searchHistory[field].unshift(value);
+            
+            // 限制历史记录数量
+            if (searchHistory[field].length > 5) {
+                searchHistory[field].pop();
+            }
+            
+            displayHistory();
+        }
+        
+        // 执行搜索
+        function performSearch(field, value) {
+            currentResults = products.filter(product => 
+                String(product[field]).toLowerCase().includes(value.toLowerCase())
+            );
+            displaySearchResults();
+        }
+        
+        // 点击输入框显示下拉框
+        input.addEventListener('click', function(e) {
+            e.stopPropagation();
+            activeSearchField = field;
+            displayHistory();
+            hideAllDropdowns();
+            dropdown.style.display = 'block';
+            searchResults.innerHTML = '';
+        });
+        
+        // 输入时进行模糊搜索建议
+        input.addEventListener('input', function() {
+            const keyword = input.value.trim();
+            if (keyword) {
+                displaySuggestions(keyword);
+                dropdown.querySelector('.search-history').style.display = 'none';
+            } else {
+                dropdown.querySelector('.search-history').style.display = 'block';
+                searchResults.innerHTML = '';
+            }
+        });
+        
+        // 回车键执行搜索
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const keyword = input.value.trim();
+                if (keyword) {
+                    hideAllDropdowns();
+                    addToHistory(field, keyword);
+                    performSearch(field, keyword);
+                }
+            }
+        });
+        
+        // 鼠标进入搜索框或下拉框区域
+        input.addEventListener('mouseenter', function() {
+            activeSearchField = field;
+        });
+        
+        dropdown.addEventListener('mouseenter', function() {
+            activeSearchField = field;
+        });
+        
+        // 鼠标离开搜索框或下拉框区域
+        const searchContainer = input.closest('.search-container');
+        searchContainer.addEventListener('mouseleave', function(e) {
+            // 检查鼠标是否真的离开了整个搜索区域
+            if (!searchContainer.contains(e.relatedTarget)) {
+                // 延迟隐藏，给鼠标移动到下拉框的时间
+                setTimeout(() => {
+                    if (activeSearchField !== field) {
+                        dropdown.style.display = 'none';
+                    }
+                }, 200);
+            }
+        });
+        
+        // 初始化显示历史记录
+        displayHistory();
+    });
+    
+    // 隐藏所有下拉框
+    function hideAllDropdowns() {
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.style.display = 'none';
+        });
+    }
+    
+    // 显示搜索结果
+    function displaySearchResults() {
+        const container = document.getElementById('productList');
+        container.innerHTML = '';
+        
+        if (currentResults.length === 0) {
+            container.innerHTML = '<p>没有找到匹配的产品</p>';
+            return;
+        }
+        
+        currentResults.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <h3>${product.name}</h3>
+                <p>类别: ${product.category}</p>
+                <p>描述: ${product.description}</p>
+                <p class="price">价格: ¥${product.price.toLocaleString()}</p>
+                <p>价格区间: ${product.priceRange}</p>
+            `;
+            container.appendChild(card);
+        });
+    }
+    
+    // 点击页面其他区域隐藏所有下拉框
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.search-container')) {
+            hideAllDropdowns();
+            activeSearchField = null;
+        }
+    });
+    
+    // 鼠标移动时检查是否需要隐藏下拉框
+    document.addEventListener('mousemove', function(e) {
+        if (activeSearchField) {
+            const searchContainer = document.querySelector(`input[data-field="${activeSearchField}"]`).closest('.search-container');
+            const dropdown = document.getElementById(`dropdown-${activeSearchField}`);
+            
+            // 检查鼠标是否在搜索框或下拉框外
+            if (!searchContainer.contains(e.target) && !dropdown.contains(e.target)) {
+                hideAllDropdowns();
+                activeSearchField = null;
+            }
+        }
+    });
+});
 //材料排序与显示
 
 

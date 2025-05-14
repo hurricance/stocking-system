@@ -60,7 +60,7 @@ export const alldata = {
             "id": 1,
             "customer_name": "test",
             "material_supplier": "123",
-            "material_name": "456",
+            "material_name": "水墨流沙",
             "total_stocking_quantity": 7300,
             "total_forSale_quantity": 2600,
             "extra": "",
@@ -71,7 +71,7 @@ export const alldata = {
             "id": 2,
             "customer_name": "test",
             "material_supplier": "789",
-            "material_name": "456",
+            "material_name": "落叶星影",
             "total_stocking_quantity": 200,
             "total_forSale_quantity": 0,
             "extra": "",
@@ -95,8 +95,8 @@ function groupAndStructureData(data) {
     return structuredArray;
 }
 
-const structuredData = groupAndStructureData(data.data);
+// const structuredData = groupAndStructureData(data.data);
 
-console.log(structuredData);
+// console.log(structuredData);
 
-// module.exports= alldata
+export default alldata

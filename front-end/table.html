@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>库存列表</title>
+<link rel="stylesheet" href="css/table.css">
+</head>
+<body>
+<div class="container">
+        <div class="search-bar">
+            <span>产品名称&nbsp;</span>
+            <input type="text" placeholder="请您输入需要检索的产品">
+            <span>&nbsp;&nbsp;&nbsp;操作方式&nbsp;:</span>
+            <select id="options">
+                <option value="0">入库</option>
+                <option value="1">出库</option>
+                <option value="2">返库</option>
+            </select>
+            <span>&nbsp;&nbsp;&nbsp;数量&nbsp;</span>
+            <input type="text" placeholder="请您输入数量">
+            <span>&nbsp;&nbsp;&nbsp;日期&nbsp;</span>
+            <input type="text" placeholder="请您选择日期">
+        </div>
+    <div class="search-bar">
+        <input type="text" placeholder="请输入内容" id="searchInput">
+        <button id="searchButton"><i class="fas fa-search">搜索</i></button>
+        <button id="addProduct">返回仓库</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>水墨流沙库存</th>
+                <th>日期</th>
+                <th>入库数量</th>
+                <th>出库数量</th>
+                <th>返库数量</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 动态生成行 -->
+        </tbody>
+    </table>
+    <div class="pagination">
+            <span>10条/页</span>
+        <nav>
+            <!-- 分页链接将在这里动态生成 -->
+        </nav>
+        <input type="text" placeholder="前往">
+        <span>页</span>
+    </div>
+</div>
+
+<script src="js/table.js"></script>
+</body>
+</html>

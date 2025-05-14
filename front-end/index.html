@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>仓库管理</title>
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+		<!--<link rel="stylesheet" href="../css/head.css">-->
+		<link rel="stylesheet" href="css/index.css" />
+	</head>
+
+
+	<body>
+		<div class="content_2">
+			<div class="search-bar">
+				<span>产品名称&nbsp;</span>
+				<input type="text" placeholder="请您输入需要检索的产品">
+	
+				<span>&nbsp;&nbsp;&nbsp;操作方式&nbsp;:</span>
+				<select id="options">
+					<option value="0">入库</option>
+					<option value="1">出库</option>
+					<option value="2">新品入库</option>
+
+				</select>
+				<select id="dynamicSelect">
+
+				</select>
+				 <div class="input-container" id="inputContainer">
+					<label for="getin">入库数量:</label><br>
+                                   <input type="number" id="numberInput" name="name">
+
+				 </div>
+				  <span>&nbsp;&nbsp;&nbsp;日期&nbsp;</span>
+				 <input type="date" id="dateInput" placeholder="请您选择日期">
+			</div>
+			<div class="search-row">
+				<!-- 搜索产品名称 -->
+				<div class="search-container">
+					<input type="text" class="search-input" placeholder="名称..." data-field="name">
+					<div class="dropdown" id="dropdown-name">
+						<div class="dropdown-content">
+							<div class="search-history">
+								<div class="history-header">搜索记录</div>
+								<div class="history-items"></div>
+							</div>
+							<div class="search-results"></div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 搜索产品类别 -->
+				<div class="search-container">
+					<input type="text" class="search-input" placeholder="供应商..." data-field="category">
+					<div class="dropdown" id="dropdown-category">
+						<div class="dropdown-content">
+							<div class="search-history">
+								<div class="history-header">搜索记录</div>
+								<div class="history-items"></div>
+							</div>
+							<div class="search-results"></div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 搜索价格范围 -->
+				<div class="search-container">
+					<input type="text" class="search-input" placeholder="客户..." data-field="priceRange">
+					<div class="dropdown" id="dropdown-priceRange">
+						<div class="dropdown-content">
+							<div class="search-history">
+								<div class="history-header">搜索记录</div>
+								<div class="history-items"></div>
+							</div>
+							<div class="search-results"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- <div class="search-bar">
+			<span>产品名称&nbsp;</span>
+			<input type="text" placeholder="请输入内容" id="searchInput">
+		</div>
+		<div class="search-bar">
+			<span>客户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<input type="text" placeholder="请输入内容" id="searchcustomInput">
+		</div>
+		<div class="search-bar">
+			<span>生产厂家&nbsp;</span>
+			<input type="text" placeholder="请输入内容" id="searchmakerInput">
+			<button id="searchButton"><i class="fas fa-search">搜索</i></button>
+		</div> -->
+			<br>
+		<div class="container">
+			<ul class="content"></ul>
+			<ul class="pagination"></ul>
+		</div>
+
+		<!-- <form id="dataForm">
+			<div class="container000">
+				<label for="id00">id:</label><br>
+				<input type="text" id="id00" name="id00"><br>
+			</div>
+			<div class="container000">
+				<label for="material_supplier">客户:</label><br>
+				<input type="text" id="customer_name" name="customer_name"><br>
+			</div>
+			<div class="container000">
+				<label for="material_name">供应商:</label><br>
+				<input type="text" id="material_supplier" name="material_supplier"><br>
+			</div>
+			<div class="container000">
+				<label for="total_stocking_quantity">材料名称:</label><br>
+				<input type="number" id="material_name" name="material_name"><br>
+			</div>
+				<div class="container000">
+				<label for="total_forSale_quantity">总库存:</label><br>
+				<input type="number" id="total_stocking_quantity" name="total_stocking_quantity"><br>
+			</div>			<div class="container000">
+				<label for="total_forSale_quantity">甩纸库存:</label><br>
+				<input type="number" id="total_forSale_quantity" name="total_forSale_quantity"><br>
+			</div>			<div class="container000">
+				<label for="total_forSale_quantity">额外:</label><br>
+				<input type="number" id="extra" name="extra"><br>
+			</div>			<div class="container000">
+				<label for="total_forSale_quantity">进厂时间:</label><br>
+				<input type="number" id="createdAt" name="createdAt"><br>
+			</div>
+			<div class="container000">
+				<label for="total_forSale_quantity">更新时间:</label><br>
+				<input type="number" id="updatedAt" name="updatedAt"><br>
+			</div>
+			<div class="container000">
+				<button type="submit">提交</button>
+			</div>
+		</form>
+		<div class="response-container000" id="responseContainer">
+
+
+		</div> -->
+
+		<script src="js/index.js" type="module"></script>
+		<script src="js/request.js" type="module"></script>
+		</body> 
+</html>
